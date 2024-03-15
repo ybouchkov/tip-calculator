@@ -30,11 +30,32 @@ class LogoView: UIView {
     
     private lazy var hStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            
+            imageView,
+            vLabelsStackView,
+            UIView()
         ])
         stackView.axis = .horizontal
         stackView.spacing = 8.0
         stackView.alignment = .center
+        return stackView
+    }()
+    
+    private let bottomLabel: UILabel = {
+        LabelFactory.build(
+            "Calculator", font: ThemeFont.demiBold(of: 20.0), textAlignment: .left)
+    }()
+    
+    private lazy var vLabelsStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            topLabel,
+            bottomLabel,
+            UIView()
+        ])
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        stackView.spacing = -4
+        
         return stackView
     }()
     // MARK: - Initializer
@@ -49,6 +70,13 @@ class LogoView: UIView {
  
     // MARK: - Private:
     private func layout() {
-        
+        addSubview(hStackView)
+        hStackView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+        imageView.snp.makeConstraints { make in
+            make.height.equalTo(imageView.snp.width)
+        }
     }
 }
