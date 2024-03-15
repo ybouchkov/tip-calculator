@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowSceen = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowSceen)
         // setup the root view controller - initial point
-        let viewController = ViewController()
+        let viewController = CalculatorViewController()
         window.rootViewController = viewController
         self.window = window
         window.makeKeyAndVisible()
