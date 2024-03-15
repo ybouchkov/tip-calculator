@@ -8,10 +8,47 @@
 import UIKit
 
 class AmountView: UIView {
+    
+    private let title: String
+    private let textAlignment: NSTextAlignment
+    
     // MARK: - IBOUtlets & Properties
-
+    private lazy var titleLabel: UILabel = {
+        LabelFactory.build(
+            title,
+            font: ThemeFont.regular(of: 18.0),
+            textColor: ThemeColor.text,
+            textAlignment: textAlignment)
+    }()
+    
+    private lazy var amountLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = textAlignment
+        label.textColor = ThemeColor.primary
+        let text = NSMutableAttributedString(
+            string: "$0",
+            attributes: [
+                .font: ThemeFont.bold(of: 24.0)
+            ])
+        text.addAttributes([
+            .font: ThemeFont.bold(of: 16)
+        ], range: NSMakeRange(0, 1))
+        label.attributedText = text
+        return label
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            titleLabel,
+            amountLabel
+        ])
+        stackView.axis = .vertical
+        return stackView
+    }()
     // MARK: - Initialization
-    init() {
+    init(_ title: String, alignment: NSTextAlignment) {
+        self.title = title
+        self.textAlignment = alignment
         super.init(frame: .zero)
         layout()
     }
@@ -22,7 +59,10 @@ class AmountView: UIView {
     
     // MARK: - Private:
     private func layout() {
-        backgroundColor = .red
+        addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 }
 
