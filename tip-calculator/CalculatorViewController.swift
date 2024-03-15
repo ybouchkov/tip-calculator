@@ -22,11 +22,13 @@ class CalculatorViewController: UIViewController {
             resultView,
             billInputView,
             tipInputView,
-            splitInputView
+            splitInputView,
+            UIView()
         ])
         stackView.axis = .vertical
         stackView.backgroundColor = .clear
         stackView.spacing = 36.0
+        stackView.distribution = .fill
         return stackView
     }()
     
@@ -39,7 +41,7 @@ class CalculatorViewController: UIViewController {
     
     // MARK: - Private:
     private func layout() {
-        view.backgroundColor = .white
+        view.backgroundColor = ThemeColor.bg
         vStackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(vStackView)
         vStackView.snp.makeConstraints { make in
