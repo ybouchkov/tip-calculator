@@ -10,7 +10,7 @@ import UIKit
 class LogoView: UIView {
     // MARK: - IBOutlets & Properties
     private lazy var imageView: UIImageView = {
-        let imageView = UIImageView(image: .icCalculatorBW)
+        let imageView = UIImageView(image: .icCalculatorBW1)
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
