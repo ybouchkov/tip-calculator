@@ -24,9 +24,8 @@ class CalculatorViewModel {
     // MARK: - Public
     // Binding
     func transform(_ input: Input) -> Output {
-        
-        input.tipPublisher.sink { tip in
-            print("TIP: \(tip.stringValue)")
+        input.splitPublisher.sink { split in
+            print("Split: \(split)")
         }.store(in: &cancellables)
         
         let result = Result(
