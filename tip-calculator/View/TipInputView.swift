@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import CombineCocoa
+import Combine
 
 class TipInputView: UIView {
     // MARK: - IBOutlets & Properties

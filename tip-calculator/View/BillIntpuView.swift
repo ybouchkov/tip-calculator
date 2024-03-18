@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import CombineCocoa
+import Combine
 
 class BillIntpuView: UIView {
     // MARK: - IBOutlets & Properties
@@ -56,17 +58,25 @@ class BillIntpuView: UIView {
         txtFiled.inputAccessoryView = toolBar
         return txtFiled
     }()
-            
+    
+    private var cancellables = Set<AnyCancellable>()
+    private let billSubject: PassthroughSubject<Double, Never> = .init()
+    
+    var valuePublisher: AnyPublisher<Double, Never> {
+        return billSubject.eraseToAnyPublisher()
+    }
+    
     // MARK: - Initializer
     init() {
         super.init(frame: .zero)
         layout()
+        observe()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
- 
+    
     // MARK: - Private:
     private func layout() {
         [headerView, textFieldContainerView].forEach(addSubview(_:))
@@ -99,5 +109,12 @@ class BillIntpuView: UIView {
     @objc
     private func doneButtonPressed() {
         textField.endEditing(true)
+    }
+    
+    // MARK: - Observe
+    private func observe() {
+        textField.textPublisher.sink { [unowned self] text in
+            billSubject.send(text?.doubleValue ?? 0)
+        }.store(in: &cancellables)
     }
 }
