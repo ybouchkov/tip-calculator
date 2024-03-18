@@ -78,13 +78,16 @@ class CalculatorViewController: UIViewController {
     }
     
     private func bind() {
-        
         let input = CalculatorViewModel.Input(
             billPublisher: billInputView.valuePublisher,
             tipPublisher: tipInputView.valuePublisher,
             splitPublisher: splitInputView.valuePublisher)
         
-        let output = viewModel.transform(input)        
+        let output = viewModel.transform(input)
+        output.updateViewPublisher.sink { [unowned self] result in
+            print(result)
+        }
+        .store(in: &cancellables)
     }
 }
 
