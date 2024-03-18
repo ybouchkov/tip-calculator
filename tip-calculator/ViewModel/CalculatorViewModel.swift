@@ -24,6 +24,11 @@ class CalculatorViewModel {
     // MARK: - Public
     // Binding
     func transform(_ input: Input) -> Output {
+        
+        input.tipPublisher.sink { tip in
+            print("TIP: \(tip.stringValue)")
+        }.store(in: &cancellables)
+        
         let result = Result(
             totalPerPerson: 1000,
             totalBill: 500,

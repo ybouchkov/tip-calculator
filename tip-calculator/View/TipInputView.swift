@@ -19,15 +19,36 @@ class TipInputView: UIView {
     }()
     
     private lazy var tenPercentTipButton: UIButton = {
-        return buildTipButton(tip: .tenPercent)
+        let button = buildTipButton(tip: .tenPercent)
+        // transform the tap event into other publisher
+        button.tapPublisher.flatMap({
+            Just(Tip.tenPercent) // value from Tip
+        })
+        .assign(to: \.value , on: tipSubject)
+        .store(in: &cancellables)
+        return button
     }()
     
     private lazy var fifteenPercentTipButton: UIButton = {
-        return buildTipButton(tip: .fifteenPercent)
+        let button = buildTipButton(tip: .fifteenPercent)
+        // transform the tap event into other publisher
+        button.tapPublisher.flatMap {
+            Just(Tip.fifteenPercent)
+        }
+        .assign(to: \.value, on: tipSubject)
+        .store(in: &cancellables)
+        return button
     }()
 
     private lazy var twentyPercentTipButton: UIButton = {
-        return buildTipButton(tip: .twentyPercent)
+        let button = buildTipButton(tip: .twentyPercent)
+        // transform the tap event into other publisher
+        button.tapPublisher.flatMap {
+            Just(Tip.twentyPercent)
+        }
+        .assign(to: \.value, on: tipSubject)
+        .store(in: &cancellables)
+        return button
     }()
     
     private lazy var customTipButton: UIButton = {
@@ -63,6 +84,14 @@ class TipInputView: UIView {
         stackView.distribution = .fillEqually
         return stackView
     }()
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    private let tipSubject = CurrentValueSubject<Tip, Never>(.none) // value
+    var valuePublisher: AnyPublisher<Tip, Never> {
+        return tipSubject.eraseToAnyPublisher()
+    }
+    
     // MARK: - Initializer
     init() {
         super.init(frame: .zero)
