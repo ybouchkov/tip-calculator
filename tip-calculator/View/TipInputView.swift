@@ -14,6 +14,8 @@ class TipInputView: UIView {
     private let kTopTitleText = "Choose"
     private let kBottomTitleText = "your tip"
     private let kCustomButtonText = "Custom tips"
+    private let kAlertTitleText = "Enter Custom tip"
+    
     private lazy var headerView: HeaderView = {
         return HeaderView(kTopTitleText, subTitle: kBottomTitleText)
     }()
@@ -58,6 +60,9 @@ class TipInputView: UIView {
         button.tintColor = .white
         button.backgroundColor = ThemeColor.primary
         button.addCornerRadius(8.0)
+        button.tapPublisher.sink { [weak self] _ in
+            self?.handleCustomTapButton()
+        }.store(in: &cancellables)
         return button
     }()
     
@@ -130,5 +135,32 @@ class TipInputView: UIView {
             .font: ThemeFont.demiBold(of: 14.0)], range: NSMakeRange(2, 1))
         button.setAttributedTitle(text, for: .normal)
         return button
+    }
+    
+    // Custom Tap
+    private func handleCustomTapButton() {
+        let alertController: UIAlertController = {
+            let controller = UIAlertController(
+                title: self.kAlertTitleText,
+                message: nil,
+                preferredStyle: .alert)
+            controller.addTextField { textField in
+                textField.placeholder = "Make it generous!"
+                textField.keyboardType = .numberPad
+                textField.autocorrectionType = .no
+            }
+            let cancelAction = UIAlertAction(
+                title: "Cancel",
+                style: .cancel)
+            let okayAction = UIAlertAction(
+                title: "OK",
+                style: .default) { [weak self] _ in
+                    guard let text = controller.textFields?.first?.text, let value = Int(text) else { return }
+                    self?.tipSubject.send(.custom(value: value))
+                }
+            [okayAction, cancelAction].forEach(controller.addAction(_:))
+            return controller
+        }()
+        parentController?.present(alertController, animated: true)
     }
 }
