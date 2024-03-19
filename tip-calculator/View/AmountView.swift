@@ -25,8 +25,9 @@ class AmountView: UIView {
         let label = UILabel()
         label.textAlignment = textAlignment
         label.textColor = ThemeColor.primary
-        label.numberOfLines = 0
-        label.minimumScaleFactor = 0.1
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
         let text = NSMutableAttributedString(
             string: "$0",
             attributes: [

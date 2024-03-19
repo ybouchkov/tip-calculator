@@ -21,8 +21,9 @@ class ResultView: UIView {
     private let amountPerPersonLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.numberOfLines = 0
-        label.minimumScaleFactor = 0.1
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontSizeToFitWidth = true
         let text = NSMutableAttributedString(string: "$0",
                                              attributes: [.font: ThemeFont.bold(of: 48.0)])
         text.addAttributes([

@@ -28,6 +28,8 @@
 		264EF9CB2BA448D000FBAF07 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 264EF9CA2BA448D000FBAF07 /* SnapshotTesting */; };
 		264EF9CD2BA4490600FBAF07 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 264EF9CC2BA4490600FBAF07 /* CombineCocoa */; };
 		26D5AB252BA97D480071C96B /* Double+Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D5AB242BA97D480071C96B /* Double+Extenstion.swift */; };
+		26D5AB282BA98E8A0071C96B /* click.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 26D5AB272BA98E8A0071C96B /* click.m4a */; };
+		26D5AB2B2BA98EAB0071C96B /* AudioPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D5AB2A2BA98EAB0071C96B /* AudioPlayerService.swift */; };
 		26F376D72BA4413C00A1AC42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F376D62BA4413C00A1AC42 /* AppDelegate.swift */; };
 		26F376D92BA4413C00A1AC42 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F376D82BA4413C00A1AC42 /* SceneDelegate.swift */; };
 		26F376DB2BA4413C00A1AC42 /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F376DA2BA4413C00A1AC42 /* CalculatorViewController.swift */; };
@@ -79,6 +81,8 @@
 		263F2A4A2BA878050032A303 /* UIResponder+Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extenstion.swift"; sourceTree = "<group>"; };
 		263F2A4C2BA886D00032A303 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		26D5AB242BA97D480071C96B /* Double+Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extenstion.swift"; sourceTree = "<group>"; };
+		26D5AB272BA98E8A0071C96B /* click.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = click.m4a; sourceTree = "<group>"; };
+		26D5AB2A2BA98EAB0071C96B /* AudioPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerService.swift; sourceTree = "<group>"; };
 		26F376D32BA4413C00A1AC42 /* tip-calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tip-calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26F376D62BA4413C00A1AC42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26F376D82BA4413C00A1AC42 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -185,6 +189,22 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		26D5AB262BA98E7A0071C96B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				26D5AB272BA98E8A0071C96B /* click.m4a */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		26D5AB292BA98E950071C96B /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				26D5AB2A2BA98EAB0071C96B /* AudioPlayerService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		26F376CA2BA4413C00A1AC42 = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +229,8 @@
 		26F376D52BA4413C00A1AC42 /* tip-calculator */ = {
 			isa = PBXGroup;
 			children = (
+				26D5AB292BA98E950071C96B /* Service */,
+				26D5AB262BA98E7A0071C96B /* Resources */,
 				263F2A432BA865000032A303 /* ViewModel */,
 				263F2A402BA83B2A0032A303 /* Model */,
 				260BA3D82BA483D90080A6CC /* Factory */,
@@ -370,6 +392,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26D5AB282BA98E8A0071C96B /* click.m4a in Resources */,
 				26F376E32BA4413D00A1AC42 /* LaunchScreen.storyboard in Resources */,
 				26F376E02BA4413D00A1AC42 /* Assets.xcassets in Resources */,
 			);
@@ -408,6 +431,7 @@
 				260BA3CF2BA475D50080A6CC /* ThemeColor.swift in Sources */,
 				260BA3C42BA4663D0080A6CC /* LogoView.swift in Sources */,
 				260BA3D42BA4762B0080A6CC /* UIColor+Extension.swift in Sources */,
+				26D5AB2B2BA98EAB0071C96B /* AudioPlayerService.swift in Sources */,
 				260BA3DC2BA48AD70080A6CC /* AmountView.swift in Sources */,
 				260BA3C62BA46A700080A6CC /* ResultView.swift in Sources */,
 				26F376D72BA4413C00A1AC42 /* AppDelegate.swift in Sources */,

@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Combine
+import CombineCocoa
 
 class CalculatorViewController: UIViewController {
     // MARK: - IBOutlets & Properties
@@ -36,12 +37,32 @@ class CalculatorViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var viewTapPublisher: AnyPublisher<Void, Never> = {
+        let tapGesture = UITapGestureRecognizer(target: self, action: nil)
+        view.addGestureRecognizer(tapGesture)
+        return tapGesture.tapPublisher.flatMap { _ in
+            Just(())
+        }
+        .eraseToAnyPublisher()
+    }()
+    
+    private lazy var logoTapPublisher: AnyPublisher<Void, Never> = {
+        let tapGesture = UITapGestureRecognizer(target: self, action: nil)
+        tapGesture.numberOfTapsRequired = 2
+        view.addGestureRecognizer(tapGesture)
+        return tapGesture.tapPublisher.flatMap { _ in
+            Just(())
+        }
+        .eraseToAnyPublisher()
+    }()
+
     // MARK: - CalculatorViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // perform layout - using snapKit ❤️
         layout()
         bind()
+        observe()
     }
     
     // MARK: - Private:
@@ -81,13 +102,24 @@ class CalculatorViewController: UIViewController {
         let input = CalculatorViewModel.Input(
             billPublisher: billInputView.valuePublisher,
             tipPublisher: tipInputView.valuePublisher,
-            splitPublisher: splitInputView.valuePublisher)
+            splitPublisher: splitInputView.valuePublisher, 
+            logoViewPublisher: logoTapPublisher)
         
         let output = viewModel.transform(input)
         output.updateViewPublisher.sink { [unowned self] result in
             resultView.configure(result)
-        }
-        .store(in: &cancellables)
+        }.store(in: &cancellables)
+        
+        output.resetCalculatorPublisher.sink { _ in
+            //resetting
+        }.store(in: &cancellables)
+    }
+    
+    private func observe() {
+        viewTapPublisher.sink { [unowned self] _ in
+            // dismissing
+            view.endEditing(true)
+        }.store(in: &cancellables)    
     }
 }
 
