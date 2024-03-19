@@ -24,7 +24,6 @@ class CalculatorViewModel {
     // MARK: - Public
     // Binding
     func transform(_ input: Input) -> Output {
-        
         let updateViewPublisher = Publishers.CombineLatest3(
             input.billPublisher,
             input.tipPublisher,

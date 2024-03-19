@@ -85,7 +85,7 @@ class CalculatorViewController: UIViewController {
         
         let output = viewModel.transform(input)
         output.updateViewPublisher.sink { [unowned self] result in
-            print(result)
+            resultView.configure(result)
         }
         .store(in: &cancellables)
     }

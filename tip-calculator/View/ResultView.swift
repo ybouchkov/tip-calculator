@@ -9,6 +9,9 @@ import UIKit
 
 class ResultView: UIView {
     // MARK: - IBOutlets & Properties
+    private let kTotalBillText = "Total bill"
+    private let kTotalTipText = "Total tip"
+
     private let headerLabel: UILabel = {
         LabelFactory.build(
             "Total p/perosn",
@@ -18,6 +21,8 @@ class ResultView: UIView {
     private let amountPerPersonLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.numberOfLines = 0
+        label.minimumScaleFactor = 0.1
         let text = NSMutableAttributedString(string: "$0",
                                              attributes: [.font: ThemeFont.bold(of: 48.0)])
         text.addAttributes([
@@ -30,6 +35,14 @@ class ResultView: UIView {
         let view = UIView()
         view.backgroundColor = ThemeColor.separator
         return view
+    }()
+    
+    private lazy var totalBillView: AmountView = {
+        return AmountView(kTotalBillText, alignment: .left)
+    }()
+    
+    private lazy var totalTipView: AmountView = {
+        return AmountView(kTotalTipText, alignment: .right)
     }()
     
     private lazy var vStackView: UIStackView = {
@@ -47,9 +60,9 @@ class ResultView: UIView {
     
     private lazy var hStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            AmountView("Total bill", alignment: .left),
+            totalBillView,
             UIView(),
-            AmountView("Total tip", alignment: .right)
+            totalTipView
         ])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -92,4 +105,24 @@ class ResultView: UIView {
         view.heightAnchor.constraint(equalToConstant: heigh).isActive = true
         return view
     }
+    
+    private func getMutableAttributedString(_ result: Result) -> NSMutableAttributedString {
+        let text = NSMutableAttributedString(
+            string: result.totalPerPerson.currencyFormatted,
+            attributes: [
+                .font: ThemeFont.bold(of: 48)
+            ])
+        text.addAttributes(
+            [.font: ThemeFont.bold(of: 24)],
+            range: NSMakeRange(0, 1))
+        return text
+    }
+    
+    // MARK: - Public
+    func configure(_ result: Result) {
+        amountPerPersonLabel.attributedText = getMutableAttributedString(result)
+        totalBillView.configure(result.totalBill)
+        totalTipView.configure(result.totalTip)
+    }
+
 }

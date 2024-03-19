@@ -25,6 +25,8 @@ class AmountView: UIView {
         let label = UILabel()
         label.textAlignment = textAlignment
         label.textColor = ThemeColor.primary
+        label.numberOfLines = 0
+        label.minimumScaleFactor = 0.1
         let text = NSMutableAttributedString(
             string: "$0",
             attributes: [
@@ -63,6 +65,23 @@ class AmountView: UIView {
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    private func getMutableAttributedText(_ amount: Double) -> NSMutableAttributedString {
+        let text = NSMutableAttributedString(
+            string: amount.currencyFormatted,
+            attributes: [
+                .font: ThemeFont.bold(of: 24)
+            ])
+        text.addAttributes(
+            [.font: ThemeFont.bold(of: 16)],
+            range: NSMakeRange(0, 1))
+        return text
+    }
+    
+    // MARK: - Public
+    func configure(_ amount: Double) {
+        amountLabel.attributedText = getMutableAttributedText(amount)
     }
 }
 
