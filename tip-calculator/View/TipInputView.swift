@@ -91,12 +91,16 @@ class TipInputView: UIView {
     }()
     
     private var cancellables = Set<AnyCancellable>()
-    
     private let tipSubject: CurrentValueSubject<Tip, Never> = .init(.none) // value
+    
+    // MARK: - Public:
     var valuePublisher: AnyPublisher<Tip, Never> {
         return tipSubject.eraseToAnyPublisher()
     }
     
+    func resetView() {
+        tipSubject.send(.none)
+    }
     // MARK: - Initializer
     init() {
         super.init(frame: .zero)

@@ -49,7 +49,7 @@ class CalculatorViewController: UIViewController {
     private lazy var logoTapPublisher: AnyPublisher<Void, Never> = {
         let tapGesture = UITapGestureRecognizer(target: self, action: nil)
         tapGesture.numberOfTapsRequired = 2
-        view.addGestureRecognizer(tapGesture)
+        logoView.addGestureRecognizer(tapGesture)
         return tapGesture.tapPublisher.flatMap { _ in
             Just(())
         }
@@ -102,7 +102,7 @@ class CalculatorViewController: UIViewController {
         let input = CalculatorViewModel.Input(
             billPublisher: billInputView.valuePublisher,
             tipPublisher: tipInputView.valuePublisher,
-            splitPublisher: splitInputView.valuePublisher, 
+            splitPublisher: splitInputView.valuePublisher,
             logoViewPublisher: logoTapPublisher)
         
         let output = viewModel.transform(input)
@@ -110,8 +110,19 @@ class CalculatorViewController: UIViewController {
             resultView.configure(result)
         }.store(in: &cancellables)
         
-        output.resetCalculatorPublisher.sink { _ in
-            //resetting
+        output.resetCalculatorPublisher.sink { [unowned self] _ in
+            resetAllViews()
+            // Animating
+            UIView.animate(withDuration: 0.1,
+                           delay: 0,
+                           usingSpringWithDamping: 5.0,
+                           initialSpringVelocity: 0.5) {
+                self.logoView.transform = .init(scaleX: 1.5, y: 1.5)
+            } completion: { _ in
+                UIView.animate(withDuration: 0.1) {
+                    self.logoView.transform = .identity
+                }
+            }
         }.store(in: &cancellables)
     }
     
@@ -119,7 +130,13 @@ class CalculatorViewController: UIViewController {
         viewTapPublisher.sink { [unowned self] _ in
             // dismissing
             view.endEditing(true)
-        }.store(in: &cancellables)    
+        }.store(in: &cancellables)
+    }
+    
+    private func resetAllViews() {
+        billInputView.resetView()
+        tipInputView.resetView()
+        splitInputView.resetView()
     }
 }
 

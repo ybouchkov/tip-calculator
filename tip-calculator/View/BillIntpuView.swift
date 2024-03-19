@@ -62,8 +62,14 @@ class BillIntpuView: UIView {
     private var cancellables = Set<AnyCancellable>()
     private let billSubject: PassthroughSubject<Double, Never> = .init()
     
+    // MARK: - Public:
     var valuePublisher: AnyPublisher<Double, Never> {
         return billSubject.eraseToAnyPublisher()
+    }
+    
+    func resetView() {
+        textField.text = nil
+        billSubject.send(0)
     }
     
     // MARK: - Initializer
