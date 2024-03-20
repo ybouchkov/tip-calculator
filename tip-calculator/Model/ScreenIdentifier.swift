@@ -31,6 +31,7 @@ enum ScreenIdentifier {
         case fifteenPercentButton
         case twentyPercentButton
         case customTipButton
+        case customTipTextField
     }
     
     // MARK: - Split View Idenfifiers
