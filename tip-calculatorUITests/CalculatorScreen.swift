@@ -91,7 +91,7 @@ class CalculatorScreen {
         case .tenPercent:
             tenPercentButton.tap()
         case .fifteenPercent:
-            twenntyPercentButton.tap()
+            fifteenPercentButton.tap()
         case .twentyPercent:
             twenntyPercentButton.tap()
         case .custom(let value):
