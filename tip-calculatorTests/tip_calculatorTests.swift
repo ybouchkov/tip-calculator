@@ -84,7 +84,6 @@ final class tip_calculatorTests: XCTestCase {
             XCTAssertEqual(result.totalBill, 100)
             XCTAssertEqual(result.totalTip, 0)
         }.store(in: &cancellables)
-
     }
     
     // testResultWith10PercentTipFor2Person

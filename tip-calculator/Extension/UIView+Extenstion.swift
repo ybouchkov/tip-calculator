@@ -28,5 +28,18 @@ extension UIView {
         layer.cornerRadius = radius
         layer.maskedCorners = [corners]
     }
+    
+    func allSubviewsOf<T: UIView>(type: T.Type) -> [T] {
+        var all = [T]()
+        func getSubView(view: UIView) {
+            if let aView = view as? T {
+                all.append(aView)
+            }
+            guard view.subviews.count > 0 else { return }
+            view.subviews.forEach { getSubView(view: $0 ) }
+        }
+        getSubView(view: self)
+        return all
+    }
 }
 

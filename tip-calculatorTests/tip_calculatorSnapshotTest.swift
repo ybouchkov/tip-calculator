@@ -62,4 +62,92 @@ final class tip_calculatorSnapshotTest: XCTestCase {
         // then
         assertSnapshots(of: view, as: [.image(size: size)], record: didUpdateSnapshot)
     }
+    
+    // MARK: - With Results
+    func testResultViewWithValues() {
+        // given
+        let size = CGSize(width: screenWidth, height: 224.0)
+        // when
+        let view = ResultView()
+        let result = Result(
+            totalPerPerson: 100.25,
+            totalBill: 45.0,
+            totalTip: 60)
+        view.configure(result)
+        // then
+        assertSnapshots(of: view, as: [.image(size: size)], record: didUpdateSnapshot)
+    }
+    
+    func testBillInputViewWithValues() {
+        // given
+        let size = CGSize(width: screenWidth, height: 224.0)
+        // when
+        let view = BillIntpuView()
+        let textField = view.allSubviewsOf(type: UITextField.self).first
+        textField?.text = "500"
+        // then
+        assertSnapshots(of: view, as: [.image(size: size)], record: didUpdateSnapshot)
+    }
+    
+    func testTipInputViewWithValues10() {
+        // given
+        let size = CGSize(width: screenWidth, height: 224.0)
+        // when
+        let view = TipInputView()
+        let button = view.allSubviewsOf(type: UIButton.self).first
+        button?.sendActions(for: .touchUpInside)
+        // then
+        assertSnapshots(of: view, as: [.image(size: size)], record: didUpdateSnapshot)
+    }
+    
+    func testTipInputViewWithValues15() {
+        // given
+        let size = CGSize(width: screenWidth, height: 224.0)
+        // when
+        let view = TipInputView()
+        let buttons = view.allSubviewsOf(type: UIButton.self)
+        for button in buttons {
+            if let titleText = button.titleLabel?.text, titleText == "15%" {
+                button.sendActions(for: .touchUpInside)
+            }
+        }
+        // then
+        assertSnapshots(of: view, as: [.image(size: size)], record: didUpdateSnapshot)
+    }
+    
+    func testTipInputViewWithValues20() {
+        // given
+        let size = CGSize(width: screenWidth, height: 224.0)
+        // when
+        let view = TipInputView()
+        let buttons = view.allSubviewsOf(type: UIButton.self)
+        for button in buttons {
+            if let titleText = button.titleLabel?.text, titleText == "20%" {
+                button.sendActions(for: .touchUpInside)
+            }
+        }
+        // then
+        assertSnapshots(of: view, as: [.image(size: size)], record: didUpdateSnapshot)
+    }
+    
+    func testTipInputViewWithCustomValue() {
+        // given
+        let size = CGSize(width: screenWidth, height: 224.0)
+        // when
+        let view = TipInputView()
+        let button = view.allSubviewsOf(type: UIButton.self).last
+        button?.sendActions(for: .touchUpInside)
+        // then
+        assertSnapshots(of: view, as: [.image(size: size)], record: didUpdateSnapshot)
+    }
+    
+    func testSplitInputViewWithSelection() {
+        let size = CGSize(width: screenWidth, height: 56)
+        // when
+        let view = SplitInputView()
+        let button = view.allSubviewsOf(type: UIButton.self).last
+        button?.sendActions(for: .touchUpInside)
+        // then
+        assertSnapshots(of: view, as: [.image(size: size)], record: didUpdateSnapshot)
+    }
 }
