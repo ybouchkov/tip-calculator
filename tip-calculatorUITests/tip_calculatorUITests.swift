@@ -68,4 +68,28 @@ final class tip_calculatorUITests: XCTestCase {
         XCTAssertEqual(screen.totalBillValueLabel.label, "120\u{00a0}BGN")
         XCTAssertEqual(screen.totalTipValueLabel.label, "20\u{00a0}BGN")
     }
+    
+    func testCustomTipFlowAndSplitBillBy2() {
+        screen.enterBill(300)
+        screen.selectTip(.custom(value: 200))
+        screen.selectIncrementButton(numberOfTaps: 1)
+        
+        XCTAssertEqual(screen.totalAmountPerPersonValueLabel.label, "250\u{00a0}BGN")
+        XCTAssertEqual(screen.totalBillValueLabel.label, "500\u{00a0}BGN")
+        XCTAssertEqual(screen.totalTipValueLabel.label, "200\u{00a0}BGN")
+    }
+    
+    func testResetButton() {
+        screen.enterBill(300)
+        screen.selectTip(.custom(value: 200))
+        screen.selectIncrementButton(numberOfTaps: 1)
+        screen.doubleTapLogoView()
+        
+        XCTAssertEqual(screen.totalAmountPerPersonValueLabel.label, "0\u{00a0}BGN")
+        XCTAssertEqual(screen.totalBillValueLabel.label, "0\u{00a0}BGN")
+        XCTAssertEqual(screen.totalTipValueLabel.label, "0\u{00a0}BGN")
+        XCTAssertEqual(screen.billTextField.label, "")
+        XCTAssertEqual(screen.quantityLabel.label, "1")
+        XCTAssertEqual(screen.customTipButton.label, "Custom tips")
+    }
 }
