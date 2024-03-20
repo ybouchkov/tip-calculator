@@ -29,6 +29,7 @@ class ResultView: UIView {
         text.addAttributes([
             .font: ThemeFont.bold(of: 24.0)], range: NSMakeRange(0, 1)) // the first symbol - $
         label.attributedText = text
+        label.accessibilityIdentifier = ScreenIdentifier.ResultViewIdentifier.totalAmountPerPersonValueLabel.rawValue
         return label
     }()
     
@@ -39,11 +40,17 @@ class ResultView: UIView {
     }()
     
     private lazy var totalBillView: AmountView = {
-        return AmountView(kTotalBillText, alignment: .left)
+        return AmountView(
+            kTotalBillText,
+            alignment: .left,
+            amountLabelIdentifier: ScreenIdentifier.ResultViewIdentifier.totalBillValueLabel.rawValue)
     }()
     
     private lazy var totalTipView: AmountView = {
-        return AmountView(kTotalTipText, alignment: .right)
+        return AmountView(
+            kTotalTipText,
+            alignment: .right,
+            amountLabelIdentifier: ScreenIdentifier.ResultViewIdentifier.totalTipValueLabel.rawValue)
     }()
     
     private lazy var vStackView: UIStackView = {
