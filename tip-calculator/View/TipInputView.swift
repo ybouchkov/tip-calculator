@@ -22,6 +22,7 @@ class TipInputView: UIView {
     
     private lazy var tenPercentTipButton: UIButton = {
         let button = buildTipButton(tip: .tenPercent)
+        button.accessibilityIdentifier = ScreenIdentifier.TipViewIdentifier.tenPercentButton.rawValue
         // transform the tap event into other publisher
         button.tapPublisher.flatMap({
             Just(Tip.tenPercent) // value from Tip
@@ -33,6 +34,7 @@ class TipInputView: UIView {
     
     private lazy var fifteenPercentTipButton: UIButton = {
         let button = buildTipButton(tip: .fifteenPercent)
+        button.accessibilityIdentifier = ScreenIdentifier.TipViewIdentifier.fifteenPercentButton.rawValue
         // transform the tap event into other publisher
         button.tapPublisher.flatMap {
             Just(Tip.fifteenPercent)
@@ -44,6 +46,7 @@ class TipInputView: UIView {
 
     private lazy var twentyPercentTipButton: UIButton = {
         let button = buildTipButton(tip: .twentyPercent)
+        button.accessibilityIdentifier = ScreenIdentifier.TipViewIdentifier.twentyPercentButton.rawValue
         // transform the tap event into other publisher
         button.tapPublisher.flatMap {
             Just(Tip.twentyPercent)
@@ -55,6 +58,7 @@ class TipInputView: UIView {
     
     private lazy var customTipButton: UIButton = {
         let button = UIButton(type: .custom)
+        button.accessibilityIdentifier = ScreenIdentifier.TipViewIdentifier.customTipButton.rawValue
         button.titleLabel?.font = ThemeFont.bold(of: 20.0)
         button.setTitle(kCustomButtonText, for: .normal)
         button.tintColor = .white

@@ -25,6 +25,7 @@ class SplitInputView: UIView {
             kDecrementText,
             corners: [.layerMinXMinYCorner, .layerMinXMaxYCorner],
             radius: 8.0)
+        button.accessibilityIdentifier = ScreenIdentifier.SplitViewIdentifier.decrementButton.rawValue
         button.tapPublisher.flatMap { [unowned self] _ in
             Just(splitSubject.value == 1 ? 1 : splitSubject.value - 1)
         }
@@ -38,6 +39,7 @@ class SplitInputView: UIView {
             kIncrementText,
             corners: [.layerMaxXMinYCorner, .layerMaxXMaxYCorner],
             radius: 8.0)
+        button.accessibilityIdentifier = ScreenIdentifier.SplitViewIdentifier.incrementButton.rawValue
         button.tapPublisher.flatMap { [unowned self] _ in
             Just(splitSubject.value + 1)
         }
@@ -48,6 +50,7 @@ class SplitInputView: UIView {
     
     private lazy var quantityLabel: UILabel = {
         let label = LabelFactory.build("1", font: ThemeFont.bold(of: 20.0))
+        label.accessibilityIdentifier = ScreenIdentifier.SplitViewIdentifier.quantityLabel.rawValue
         label.backgroundColor = .white
         return label
     }()

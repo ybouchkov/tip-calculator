@@ -32,6 +32,7 @@ class BillIntpuView: UIView {
     
     private lazy var textField: UITextField =  {
         let txtFiled = UITextField()
+        txtFiled.accessibilityIdentifier = ScreenIdentifier.BillViewIdentifier.textFieldIdentifier.rawValue
         txtFiled.borderStyle = .none
         txtFiled.font = ThemeFont.demiBold(of: 28.0)
         txtFiled.keyboardType = .decimalPad
